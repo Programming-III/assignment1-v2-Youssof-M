@@ -11,25 +11,23 @@ class Student;
 
 class Course {
 private:
-    string courseCode;   
+    string courseCode;
     string courseName;
     int maxStudents;
-    vector<Student*> students;  
-    int currentStudents;      
+    int currentStudents;
+    Student* students; // dynamically allocated array of students
 
 public:
-    
+    // Constructors
     Course();
-    Course(const string& code, const string& name, int maxStudents);
+    Course(string courseCode, string courseName, int maxStudents, Student* initialStudents = nullptr, int currentStudents = 0);
+
+    // Destructor
     ~Course();
 
-   
-    bool addStudent(Student* s);  
-
-  
-    void displayCourseInfo() const;            
-};
-
+    // Methods
+    void addStudent(const Student& s);
+    void displayCourseInfo() const;
 
 
 
