@@ -11,6 +11,7 @@ private:
     string major;      
 
 public:
+student();
     Student(string name, int id,int yearLevel, string major);  
     void display();            
 };
