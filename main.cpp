@@ -35,37 +35,55 @@ void Instructor::display(){
      cout << "experience years: "<< experienceYears<<endl;
 }
 
-Course::Course(string courseCode,string courseName,int maxStudents,Student* initialStudents,int currentStudents){
+Course::Course() {
+    this->courseCode = "XXX000";
+    this->courseName = "NoName";
+    this->maxStudents = 0;
+    this->currentStudents = 0;
+    this->students = nullptr;
+}
+
+
+Course::Course(string courseCode, string courseName, int maxStudents, Student* initialStudents, int currentStudents) {
     this->courseCode = courseCode;
     this->courseName = courseName;
     this->maxStudents = maxStudents;
-    
+
+   
     this->students = new Student[maxStudents];
+
+    // Copy current students safely
     this->currentStudents = (currentStudents < maxStudents) ? currentStudents : maxStudents;
-    for (int i = 0; i < this->currentStudents; ++i) this->students[i] = initialStudents[i];
+    for (int i = 0; i < this->currentStudents; ++i) {
+        this->students[i] = initialStudents[i];
+    }
 }
 
- void Course::addStudent(const Student& s){
-    if (this->currentStudents < this->maxStudents)
+
+void Course::addStudent(const Student& s) {
+    if (this->currentStudents < this->maxStudents) {
         this->students[this->currentStudents++] = s;
-    else
+    } else {
         cout << "Cannot add student: course is full." << endl;
- }
+    }
+}
 
- void Course::displayCourseInfo(){
-    
-     cout << "coure:" << endl;
-     cout << "  " << courseCode << " - " << courseName << endl;
-     cout << "max students: " << maxStudents << endl;
-     cout << "currently enrolled: " << currentStudents << endl;
-     cout << "stduent info:" << endl;
-     for (int i = 0; i < currentStudents; ++i) {
-         cout << "  Student " << (i + 1) << ": ";
-         students[i].display();
-     }
- }
+// Display full course info
+void Course::displayCourseInfo() const {
+    cout << "Course Info:" << endl;
+    cout << "  " << courseCode << " - " << courseName << endl;
+    cout << "Max students: " << maxStudents << endl;
+    cout << "Currently enrolled: " << currentStudents << endl;
+    cout << "Students:" << endl;
 
- 
+    for (int i = 0; i < currentStudents; ++i) {
+        cout << "  Student " << (i + 1) << ":" << endl;
+        students[i].displayInfo(); // matches Student::displayInfo()
+        cout << endl;
+    }
+}
+
+// Destructor
 Course::~Course() {
     delete[] this->students;
 }
