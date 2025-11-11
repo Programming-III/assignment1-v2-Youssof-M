@@ -19,7 +19,10 @@ Student::Student(string name, int id,int yearLevel, string major):Person(name,id
    this->yearLevel=yearLevel;
     this->major = major;
 }
-
+Student::Student() : Person("", 0) {
+    this->yearLevel = 0;
+    this->major = "";
+}
 void Student::display() {
     Person::display();
     cout << "Year Level: " << yearLevel << endl;
@@ -52,7 +55,7 @@ Course::Course(string courseCode, string courseName, int maxStudents, Student* i
    
     this->students = new Student[maxStudents];
 
-    // Copy current students safely
+    
     this->currentStudents = (currentStudents < maxStudents) ? currentStudents : maxStudents;
     for (int i = 0; i < this->currentStudents; ++i) {
         this->students[i] = initialStudents[i];
@@ -68,7 +71,7 @@ void Course::addStudent(const Student& s) {
     }
 }
 
-// Display full course info
+
 void Course::displayCourseInfo() const {
     cout << "Course Info:" << endl;
     cout << "  " << courseCode << " - " << courseName << endl;
@@ -78,7 +81,7 @@ void Course::displayCourseInfo() const {
 
     for (int i = 0; i < currentStudents; ++i) {
         cout << "  Student " << (i + 1) << ":" << endl;
-        students[i].displayInfo(); // matches Student::displayInfo()
+        students[i].display(); 
         cout << endl;
     }
 }
@@ -108,4 +111,5 @@ int main(){
     c1.displayCourseInfo();
 
     return 0;
+ }
  }
