@@ -5,17 +5,29 @@
 #include "Student.h"
 using namespace std;
 //#write your code here
+using namespace std;
+
+class Student; 
+
 class Course {
 private:
-   string courseCode;   
+    string courseCode;   
     string courseName;
     int maxStudents;
-    Student* students;
+    vector<Student*> students;  
     int currentStudents;      
 
 public:
-    addStudent(const Student& s);  
-    void displayCourseInfo();            
+    
+    Course();
+    Course(const string& code, const string& name, int maxStudents);
+    ~Course();
+
+   
+    bool addStudent(Student* s);  
+
+  
+    void displayCourseInfo() const;            
 };
 
 
